@@ -1,0 +1,8 @@
+{
+	"appId":"493275",
+	"key":"fc7eb514164f8bad0c06",
+	"secret":"da473627a9860a9874eb",
+	"cluster":"eu",
+	"encrypted":true,
+	"restServer":"https://storygram1.herokuapp.com"
+}
