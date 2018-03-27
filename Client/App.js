@@ -35,6 +35,7 @@ const widthChat= (widthDevice * (1/3));
 export default class App extends Component<Props> {
 	componentDidMount() {
     // this locks the view to Landscape Mode
+    
     	Orientation.lockToLandscape();
   	}
 
