@@ -9,10 +9,20 @@
     const app = express(); // (2)
     app.use(bodyParser.json());
 
-    app.post('/messages', function(req, res) { // (5)
-        console.log('Sent message: ' + req.body.message);
+    app.put('/users/:name', function(req, res) { // (3)
+        console.log('User joined: ' + req.params.name);
+        pusherClient.trigger('chat_channel', 'join', {
+            name: req.params.name
+        });
+        res.sendStatus(204);
+    });
+
+
+    app.post('/users/:name/messages', function(req, res) { // (5)
+        console.log('User ' + req.params.name + ' sent message: ' + req.body.message);
         pusherClient.trigger('chat_channel', 'message', {
-            "message": req.body.message
+            name: req.params.name,
+            message: req.body.message
         });
         res.sendStatus(204);
     });
