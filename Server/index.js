@@ -17,6 +17,13 @@
         res.sendStatus(204);
     });
 
+    app.delete('/users/:name', function(req, res) {
+        console.log('User left: ' + req.params.name);
+        pusherClient.trigger('chat_channel', 'part', {
+            name: req.params.name
+        });
+        res.sendStatus(204);
+    });
 
     app.post('/users/:name/messages', function(req, res) { // (5)
         console.log('User ' + req.params.name + ' sent message: ' + req.body.message);
