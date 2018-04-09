@@ -24,7 +24,7 @@ const Person =(props) => {
 
 const styles = StyleSheet.create ({
 	personContainer: {
-		height: Platform.OS === 'ios' ? 140 : 105, 
+		height: Platform.OS === 'ios' ? 120 : 105, 
 		width: Platform.OS === 'ios' ? 100 : 85,
 		backgroundColor: 'rgb(162,199,255)',
 		alignItems: 'center',
@@ -33,7 +33,7 @@ const styles = StyleSheet.create ({
 	},
 
 	photo: {
-		height: Platform.OS === 'ios' ? 110 : 70,
+		height: Platform.OS === 'ios' ? 90 : 70,
 		width: Platform.OS === 'ios' ? 90 : 70,
 		resizeMode: 'contain',
 	},

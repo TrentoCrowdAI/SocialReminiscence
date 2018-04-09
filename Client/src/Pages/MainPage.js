@@ -36,19 +36,29 @@ export default class MainPage extends Component<Props> {
 
   constructor(props) {
       super(props);
-      console.log(JSON.stringify(props, null, "   "))
       this.state = {
         name: this.props.name,
         pictures: 'https://firebasestorage.googleapis.com/v0/b/storygram-a2b95.appspot.com/o/logo.001.jpeg?alt=media&token=24884208-c446-48c1-9de3-24f36d9f3fcf'
       };
-    }
+      this.checkIfUrl = this.onReceivedMessage.bind(this);
+  }
 
+  onReceivedMessage(message){
+    let columns = message.split(' ');
+    columns.forEach((element) => {
+      if(element.startsWith('http')){
+        this.setState({
+         pictures: element
+        });
+      }
+    });
+  }
 
-  handleMessage(picture) {
-      this.setState({
-        pictures: picture
-      });
-    }
+  // handleMessage(picture) {
+  //     this.setState({
+  //       pictures: picture
+  //     });
+  //   }
 
 
   render() {
@@ -98,9 +108,8 @@ export default class MainPage extends Component<Props> {
             </Text>
           </View>
 
-          <View style = {{ flex: 1 , backgroundColor : 'rgb(162,199,255)', width: widthChat - 20, margin: 10 }}>
-            <ChatClient name={ this.state.name } />
-          </View>
+          <ChatClient name={ this.state.name } onReceivedMessage={this.checkIfUrl}/>
+          
         </View>
       </View>
     );
@@ -109,12 +118,12 @@ export default class MainPage extends Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    //flex:1,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     height: Platform.OS === 'ios' ? heightDevice : heightDeviceAndroid,
     width: widthDevice,
+
   },
 
   imageSection: {

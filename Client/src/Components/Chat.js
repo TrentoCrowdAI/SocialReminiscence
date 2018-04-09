@@ -1,40 +1,52 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, FlatList, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, 
+          Text, 
+          TextInput, 
+          FlatList, 
+          KeyboardAvoidingView,
+          View,
+          Dimensions,
+    } from 'react-native';
     
 
 export default class Chat extends React.Component {
   constructor(props) {
     super(props);
-
     this.handleSendMessage = this.onSendMessage.bind(this);
   }
 
-  onSendMessage(e) { // (1)
+  onSendMessage(e) { 
     this.props.onSendMessage(e.nativeEvent.text);
     this.refs.input.clear();
+    this.refs.messages.scrollToEnd();
   }
 
-  render() { // (2)
+  render() { 
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <FlatList data={ this.props.messages } 
+        <View>    
+            <FlatList data={ this.props.messages } 
                   renderItem={ this.renderItem }
                   styles={ styles.messages } 
                   ref="messages" />
-        <TextInput autoFocus
-                   keyboardType="default"
-                   returnKeyType="done"
-                   enablesReturnKeyAutomatically
-                   style={ styles.input }
-                   blurOnSubmit={ false }
-                   onSubmitEditing={ this.handleSendMessage }
-                   ref="input"
-                   />
+        
+            <TextInput autoFocus
+                       keyboardType="default"
+                       returnKeyType="done"
+                       enablesReturnKeyAutomatically
+                       style={ styles.input }
+                       blurOnSubmit={ false }
+                       onSubmitEditing={ this.handleSendMessage}
+                       ref="input"
+                       multiline = {true}
+                       placeholder = "Message"
+                       />
+        </View>
       </KeyboardAvoidingView>
     );
   }
 
-  renderItem({item}) { // (3)
+  renderItem({item}) { 
     const action = item.action;
     const name = item.name;
 
@@ -43,7 +55,12 @@ export default class Chat extends React.Component {
     } else if (action == 'part') {
         return <Text style={ styles.joinPart }>{ name } has left</Text>;
     } else if (action == 'message') {
-        return <Text>{ name }: { item.message }</Text>;
+        return (
+          <View style = { styles.messages}>
+            <Text style={ styles.name }>{ name }: </Text>;
+            <Text style={ styles.messageText }>{ item.message }</Text>;
+          </View>
+        );
     }
   }
 }
@@ -51,18 +68,36 @@ export default class Chat extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: (Dimensions.get('window').width / 3 ) - 20,
     backgroundColor: '#fff',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
+    margin: 10
     
   },
   messages: {
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+    width: (Dimensions.get('window').width / 3 ) - 20,
+    margin:5,
+  },
+
+  name: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+
+  messageText: {
+    fontSize : 20,
+
   },
   input: {
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    fontSize: 20,
   },
   joinPart: {
-    fontStyle: 'italic'
+    fontStyle: 'italic',
+    fontSize: 20,
+    fontWeight: 'bold',
   }
 });

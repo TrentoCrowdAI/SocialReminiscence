@@ -41,7 +41,7 @@
 
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
-  return UIInterfaceOrientationMaskLandscape;
+  return UIInterfaceOrientationMaskLandscapeRight;
 }
 
 
