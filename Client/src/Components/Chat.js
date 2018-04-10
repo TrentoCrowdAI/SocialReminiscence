@@ -13,11 +13,14 @@ export default class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.handleSendMessage = this.onSendMessage.bind(this);
+    this.state ={
+      text: ''
+    }
   }
 
   onSendMessage(e) { 
     this.props.onSendMessage(e.nativeEvent.text);
-    this.refs.input.clear();
+    this.setState({text: ''});
     this.refs.messages.scrollToEnd();
   }
 
@@ -37,8 +40,10 @@ export default class Chat extends React.Component {
                        style={ styles.input }
                        blurOnSubmit={ false }
                        onSubmitEditing={ this.handleSendMessage}
-                       ref="input"
-                       multiline = {true}
+                       onChangeText = {(text) => this.setState({text})}
+                       value = {this.state.text}
+                       ref='input'
+                       //multiline = {true}
                        placeholder = "Message"
                        />
         </View>
@@ -51,14 +56,17 @@ export default class Chat extends React.Component {
     const name = item.name;
 
     if (action == 'join') {
-        return <Text style={ styles.joinPart }>{ name } has joined</Text>;
+        return( 
+
+          <Text style={ styles.joinPart }>{ name } has joined</Text>);
     } else if (action == 'part') {
-        return <Text style={ styles.joinPart }>{ name } has left</Text>;
+        return (
+          <Text style={ styles.joinPart }>{ name } has left</Text>);
     } else if (action == 'message') {
         return (
           <View style = { styles.messages}>
-            <Text style={ styles.name }>{ name }: </Text>;
-            <Text style={ styles.messageText }>{ item.message }</Text>;
+            <Text style={ styles.name }>{ name }: </Text>
+            <Text style={ styles.messageText }>{ item.message }</Text>
           </View>
         );
     }
@@ -94,6 +102,7 @@ const styles = StyleSheet.create({
   input: {
     alignSelf: 'stretch',
     fontSize: 20,
+    width: (Dimensions.get('window').width / 3 ) - 20,
   },
   joinPart: {
     fontStyle: 'italic',

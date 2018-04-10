@@ -7,7 +7,7 @@ export default class Login extends React.Component {
       <KeyboardAvoidingView 
         style={styles.container} 
         behavior="padding"
-        keyboardVerticalOffset ={60} 
+        keyboardVerticalOffset ={20} 
         > 
           <Text style={styles.enter} >Enter the name to connect as:</Text> 
           <TextInput autoCapitalize="words" 
