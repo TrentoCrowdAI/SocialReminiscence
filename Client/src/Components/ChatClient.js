@@ -66,6 +66,7 @@ export default class ChatClient extends React.Component {
   }
 
   onSendMessage(text) { 
+    text = text.replace(/(\r\n\t|\n|\r\t)/gm,"");     //rimuove a capo o tab dal messaggio (per esempio se inviato con enter)
     const payload = {
         message: text
     };

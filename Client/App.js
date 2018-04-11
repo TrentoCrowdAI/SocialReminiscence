@@ -4,17 +4,17 @@ import MainPage from './src/Pages/MainPage';
 
 
 
-export default class App extends React.Component { // (1)
+export default class App extends React.Component { 
   constructor(props) {
-    super(props); // (2)
-    this.handleSubmitName = this.onSubmitName.bind(this); // (3)
-    this.state = { // (4)
+    super(props); 
+    this.handleSubmitName = this.onSubmitName.bind(this); 
+    this.state = { 
       hasName: false
     };
   }
 
-  onSubmitName(e) { // (5)
-    const name = e.nativeEvent.text;
+
+  onSubmitName(name) { 
     this.setState({
       name,
       hasName: true
