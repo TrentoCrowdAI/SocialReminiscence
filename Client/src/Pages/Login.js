@@ -5,7 +5,8 @@ import {
   TextInput, 
   KeyboardAvoidingView,
   Dimensions, 
-  TouchableHighlight 
+  TouchableHighlight,
+  View,
 } from 'react-native';
 
 export default class Login extends React.Component { 
@@ -25,45 +26,54 @@ export default class Login extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView 
-        style={styles.container} 
+        style={styles.keyboard} 
         behavior="padding"
         keyboardVerticalOffset ={20} 
         > 
-          <Text style={styles.enter} >Enter the name to connect as:</Text> 
-          <TextInput autoCapitalize="words" 
-                     autoCorrect={false}
-                     autoFocus
-                     keyboardType="default"
-                     maxLength={ 20 }
-                     placeholder="Name"
-                     returnKeyType="done"
-                     enablesReturnKeyAutomatically
-                     style={styles.username}
-                     onSubmitEditing={this.handleSendMessage}
-                     onChangeText = {(name) => this.setState({name})}
-                     />
-          <TouchableHighlight 
-                  onPress={this.handleSendMessage}
-                  style = {styles.sendButton}
-                  >
-                    <Text style = {styles.send} >Log In</Text>
-                </TouchableHighlight>
+          <View style={styles.container} >
+              <Text style={styles.enter} >Enter your name: </Text> 
+              <TextInput autoCapitalize="words" 
+                         autoCorrect={false}
+                         autoFocus
+                         keyboardType="default"
+                         maxLength={ 20 }
+                         placeholder="Name"
+                         returnKeyType="done"
+                         enablesReturnKeyAutomatically
+                         style={styles.name}
+                         onSubmitEditing={this.handleSendMessage}
+                         onChangeText = {(name) => this.setState({name})}
+                         />
+              <TouchableHighlight 
+                      onPress={this.handleSendMessage}
+                      style = {styles.sendButton}
+                      >
+                        <Text style = {styles.send} >Log In</Text>
+              </TouchableHighlight>
+          </View>
       </KeyboardAvoidingView>
     );
   }
 }
 
 const styles = StyleSheet.create({ 
-  container: {
+  keyboard: {
     flex: 1,
     backgroundColor: '#fff',
+ //   alignItems: 'center',
+ //   justifyContent: 'center'
+  },
+
+  container: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
 
   enter: {
     fontSize: 25,
-    margin: 5,
+    margin: 10,
+    fontWeight: 'bold',
   },
 
   sendButton:{
@@ -81,9 +91,10 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
 
-  username: {
+  name: {
     alignSelf: 'stretch',
     textAlign: 'center',
     fontSize: 20,
+    marginBottom: 30,
   }
 });
