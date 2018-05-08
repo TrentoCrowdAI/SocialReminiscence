@@ -1,8 +1,22 @@
 import React from 'react';
 import Pusher from 'pusher-js/react-native';
 import Chat from './Chat';
+import StatusBar from './StatusBar1';
+import { StyleSheet, 
+  View,
+  Dimensions,
+  Platform,
+} from 'react-native';
 
 import pusherConfig from '../../pusher.json';
+
+
+const window = Dimensions.get('window'); 
+const widthDevice = window.width; 
+const heightDevice = window.height;
+const heightDeviceAndroid = window.height - StatusBar.currentHeight;
+
+const widthChat= (widthDevice * (1/3));
 
 export default class ChatClient extends React.Component {
   constructor(props) {
@@ -85,7 +99,19 @@ export default class ChatClient extends React.Component {
     const messages = this.state.messages;
 
     return (
-    <Chat messages={ messages } onSendMessage={ this.handleSendMessage } />
+      <View style = {styles.chatSection}> 
+        <Chat messages={ messages } onSendMessage={ this.handleSendMessage } />
+      </View>
 );
   }
 }
+
+
+const styles = StyleSheet.create({
+  chatSection: {
+    alignItems: 'center',
+    width: widthChat,
+    height: Platform.OS === 'ios' ? heightDevice : heightDeviceAndroid,
+    //backgroundColor: 'rgb(162,199,255)',
+  },
+});
