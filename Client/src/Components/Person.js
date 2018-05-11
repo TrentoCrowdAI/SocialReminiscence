@@ -26,7 +26,7 @@ const styles = StyleSheet.create ({
 	personContainer: {
 		height: Platform.OS === 'ios' ? 120 : 105, 
 		width: Platform.OS === 'ios' ? 100 : 85,
-		backgroundColor: 'rgb(162,199,255)',
+		//backgroundColor: 'rgb(162,199,255)',
 		alignItems: 'center',
 		justifyContent: 'center',
 		margin: 20,
@@ -36,11 +36,17 @@ const styles = StyleSheet.create ({
 		height: Platform.OS === 'ios' ? 90 : 70,
 		width: Platform.OS === 'ios' ? 90 : 70,
 		resizeMode: 'contain',
+		borderRadius: 45,
+		borderWidth: 5,
+		borderColor: 'white',
 	},
 
 	name: {
-		fontSize: 16,
+		fontSize: 20,
 		fontWeight: 'bold',
+		color: 'white',
+		fontFamily: 'Avenir',
+		fontWeight: '400',
 	},
 
 });

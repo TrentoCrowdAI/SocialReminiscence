@@ -13,11 +13,12 @@ const window = Dimensions.get('window');
 const widthDevice = window.width; 
 const widthImage = (widthDevice * (2/3));
 
-export default class MainComponent extends Component<Props>{
+export default class PlaceTime extends Component<Props>{
     render(){
         return (
-            <View style= {styles.buttonContainer}> 
-                <View style = {styles.placeTimeContainer}>
+            <View style = {styles.placeTimeContainer}>
+                <Image source={require('../Icon/location.png')} style={styles.location} />
+                <View style={{borderBottomColor: 'white', borderBottomWidth: 1,}} >
                     <Text style = {styles.infoText}>Place, Time </Text>
                 </View>
             </View>
@@ -27,26 +28,28 @@ export default class MainComponent extends Component<Props>{
 
 
 const styles = StyleSheet.create({
-    buttonContainer: {
-        width: (widthImage * (1/3)), 
+    placeTimeContainer: {
+        height: 40,
+        alignItems: 'flex-end',
         justifyContent: 'center',
-        alignItems: 'center',
-        //backgroundColor:'red',
+        marginTop: 30, 
+        flexDirection: 'row',
     },
 
-    placeTimeContainer: {
-        //backgroundColor: 'rgb(162,199,255)',
-        height: 40,
-        width: 160,
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: 14,
-        borderBottomColor: 'black',
-        borderBottomWidth: 2,
+    location:{
+        height: 33,
+        width: 33,
+        resizeMode: 'contain',
+        marginRight: 5,
     },
 
     infoText: {
         fontSize: 20,
         fontWeight: 'bold',
+        color: 'white',
+        marginBottom: 5,
+        margin:5,
+        marginLeft: 0,
+
     },
 });

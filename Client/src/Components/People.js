@@ -10,16 +10,20 @@ import {
 } from 'react-native';
 
 import Person from '../Components/Person';
+import Triangle from '../Components/Triangle'
 
 
 
-export default class MainComponent extends Component<Props>{
+export default class People extends Component<Props>{
     render(){
         return (
             <View style = {styles.people}>
-                <Text style = {styles.peopleText}>
-                    People in this photo: 
-                </Text>
+                <View style={styles.stroke}>
+                    <Text style = {styles.peopleText}>
+                        In this photo
+                    </Text>
+                </View>
+                <Triangle style={styles.triangleDown} />
                 <View style = {styles.peoplePhotoContainer}> 
                     <Person /> 
                     <Person /> 
@@ -36,21 +40,36 @@ const styles = StyleSheet.create({
         flex : 1,
         justifyContent:'center',
         alignItems: 'center',
-        marginTop: 10,
+        marginTop: 45,
         //backgroundColor: 'red',
+    },
+
+    stroke:{
+        borderBottomColor: 'white',
+        borderBottomWidth: 5,
     },
 
     peopleText:{
-        fontSize: 25,
-        fontWeight: 'bold',
-        marginBottom : 8,
+        fontSize: 30,
+        fontWeight: '600',
+        margin: 5,
+        marginBottom: 3,
+        color: 'white',
+        fontFamily: 'Avenir Next',
     },
+
+    triangleDown: {
+        transform: [
+          {rotate: '180deg'}
+        ]
+      },
 
     peoplePhotoContainer: {
         flex:1,
-        flexDirection: 'row',
-        //backgroundColor: 'red',
-        justifyContent:'center',
+        justifyContent:'flex-start',
         alignItems: 'center',
+        marginTop: 20,
     },
+
+
 });

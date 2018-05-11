@@ -6,9 +6,15 @@ import { StyleSheet,
           KeyboardAvoidingView,
           View,
           Dimensions,
-          TouchableHighlight
+          TouchableHighlight,
+          Image,
     } from 'react-native';
-    
+import Message from './Message';
+
+const window = Dimensions.get('window'); 
+const widthDevice = window.width; 
+const widthChat= (widthDevice * (5/7) - 20);
+
 
 export default class Chat extends React.Component {
   constructor(props) {
@@ -25,7 +31,7 @@ export default class Chat extends React.Component {
   onSendMessage() { 
     this.props.onSendMessage(this.state.text);
     this.setState({text: ''});
-    this.refs.messages.scrollToEnd();
+    //console.log("Chat.js message:" + JSON.stringify(this.props.messages));
   }
 
 
@@ -34,7 +40,7 @@ export default class Chat extends React.Component {
         if(this.state.lastText.split("\n").length != this.state.text.split("\n").length){
             this.handleSendMessage();
         }else{
-          if (event.nativeEvent.contentSize.height < 110) {
+          if (event.nativeEvent.contentSize.height < 55) {
             this.setState({
                 inputHeight : event.nativeEvent.contentSize.height < 40 ? 40 : event.nativeEvent.contentSize.height
             })
@@ -50,27 +56,29 @@ export default class Chat extends React.Component {
   render() { 
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <View>    
-            <FlatList data={ this.props.messages } 
-                  renderItem={ this.renderItem }
-                  styles={ styles.messages } 
-                  ref="messages" />
-
-            <View style = {{flexDirection : 'row', justifyContent: 'flex-end'}}>
-                <TextInput autoFocus
-                           keyboardType="default"
-                           returnKeyType="done"
-                           enablesReturnKeyAutomatically
-                           style={ [styles.input , {height: this.state.inputHeight}] }
-                           blurOnSubmit={ false }
-                           //onSubmitEditing={ this.handleSendMessage}
-                           onChangeText = {(text) => this.setState({text})}
-                           onContentSizeChange={(event) => this.contentSizeChange(event)}
-                           value = {this.state.text}
-                           ref='input'
-                           multiline = {true}
-                           placeholder = "Message"
-                           />
+        <View>
+            <Message messages={this.props.messages}/>
+            <View style = {styles.keyboard}>
+                <Image 
+                  style={styles.plus}
+                  source={require('../Icon/plus.png')}
+                />
+                <View style = {styles.border} >
+                  <TextInput autoFocus
+                            keyboardType="default"
+                            returnKeyType="done"
+                            enablesReturnKeyAutomatically
+                            style={ [styles.input , {height: this.state.inputHeight}] }
+                            blurOnSubmit={ false }
+                            //onSubmitEditing={ this.handleSendMessage}
+                            onChangeText = {(text) => this.setState({text})}
+                            onContentSizeChange={(event) => this.contentSizeChange(event)}
+                            value = {this.state.text}
+                            ref='input'
+                            multiline = {true}
+                            placeholder = "Message"
+                            />
+                </View>
 
                 <TouchableHighlight 
                   onPress={this.handleSendMessage}
@@ -83,88 +91,70 @@ export default class Chat extends React.Component {
       </KeyboardAvoidingView>
     );
   }
-
-  renderItem({item}) { 
-    const action = item.action;
-    const name = item.name;
-
-    if (action == 'join') {
-        return( 
-          <Text style={ styles.joinPart }>{ name } has joined</Text>);
-    } else if (action == 'part') {
-        return (
-          <Text style={ styles.joinPart }>{ name } has left</Text>);
-    } else if (action == 'message') {
-        return (
-          <View style = { styles.messagesChat}>
-              <Text style={ styles.name }>{ name }: </Text>
-              <Text style={ styles.messageText }>{ item.message }</Text>
-          </View>
-        );
-    }
-  }
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: (Dimensions.get('window').width / 3 ) - 20,
+    width: widthChat ,
     backgroundColor: '#fff',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
     margin: 10
     
   },
-  messages: {
-    alignSelf: 'stretch',
-    width: (Dimensions.get('window').width / 3 ) - 10,
-    margin:5,
-    backgroundColor: 'blue'
+
+  keyboard: {
+    flexDirection : 'row', 
+    justifyContent: 'flex-end',
   },
 
-  messagesChat: {
-    width: (Dimensions.get('window').width / 3 ) - 10,
-    margin: 8,
+  plus: {
+    width: 40, 
+    height: 40,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 5,
+    marginTop: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
-  name: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-
-
-  messageText: {
-    fontSize : 20,
+  border: {
+    width: widthChat * (4/5) - 70,
+    borderColor: 'lightgrey',
+    borderWidth: 1,
+    margin: 5,
+    borderRadius: 17,
   },
 
   input: {
     alignSelf: 'stretch',
     fontSize: 20,
-    width: Dimensions.get('window').width * (2/9),
-    borderColor: 'lightgrey',
-    borderWidth: 1,
-    margin: 5,
+    width: widthChat * (4/5) - 90,
+    marginLeft: 10,
+    marginRight: 10,
 
   },
 
   sendButton:{
-    width : Dimensions.get('window').width * (1/9) - 20,
+    width : widthChat * (1/5) - 5 ,
     margin: 5,
-    backgroundColor: 'rgb(162,199,255)',
+    marginLeft: 10,
+    marginRight: 0,
+    backgroundColor: 'rgb(18,109,215)',
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 4,
   },
 
   send: {
     fontSize: 20,
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
+    color: 'white',
   },
-
-  joinPart: {
-    fontStyle: 'italic',
-    fontSize: 20,
-    fontWeight: 'bold',
-  }
 });

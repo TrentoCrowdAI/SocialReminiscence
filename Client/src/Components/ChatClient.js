@@ -16,7 +16,7 @@ const widthDevice = window.width;
 const heightDevice = window.height;
 const heightDeviceAndroid = window.height - StatusBar.currentHeight;
 
-const widthChat= (widthDevice * (1/3));
+const widthChat= (widthDevice * (5/7) - 20);
 
 export default class ChatClient extends React.Component {
   constructor(props) {
@@ -84,7 +84,7 @@ export default class ChatClient extends React.Component {
     const payload = {
         message: text
     };
-    console.log(JSON.stringify(payload));
+    console.log("payload: " + JSON.stringify(payload));
     fetch(`${pusherConfig.restServer}/users/${this.props.name}/messages`, {
       method: 'POST',
       headers: {
@@ -109,9 +109,11 @@ export default class ChatClient extends React.Component {
 
 const styles = StyleSheet.create({
   chatSection: {
-    alignItems: 'center',
+    flex: 1,
+    alignItems: 'flex-start',
     width: widthChat,
-    height: Platform.OS === 'ios' ? heightDevice : heightDeviceAndroid,
+    margin: 10,
+    //height: Platform.OS === 'ios' ? heightDevice : heightDeviceAndroid,
     //backgroundColor: 'rgb(162,199,255)',
   },
 });

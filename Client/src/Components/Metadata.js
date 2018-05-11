@@ -11,12 +11,14 @@ import {
 
 import People from '../Components/People';
 import PlaceTime from '../Components/PlaceTime';
+import Title from '../Components/Title';
 
 
-export default class MainComponent extends Component<Props>{
+export default class Metadata extends Component<Props>{
     render(){
         return (
-            <View style = {styles.infoContainer}> 
+            <View style = {styles.infoContainer}>
+                <Title />
                 <PlaceTime />
                 <People />
             </View> 
@@ -28,6 +30,7 @@ export default class MainComponent extends Component<Props>{
 const styles = StyleSheet.create({
     infoContainer: {
         flex:1,
-        flexDirection: 'row',
+        backgroundColor: 'rgba(87,188,144,90)',
+        paddingTop: Platform.OS === 'ios' ? 20 : 0, 
     }, 
 });
