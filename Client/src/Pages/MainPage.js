@@ -35,11 +35,12 @@ export default class MainPage extends Component<Props> {
         name: this.props.name,
         //pictures: 'https://firebasestorage.googleapis.com/v0/b/storygram-a2b95.appspot.com/o/logo.001.jpeg?alt=media&token=24884208-c446-48c1-9de3-24f36d9f3fcf'
       };
+      console.ignoredYellowBox = ['Setting a timer'];
   }
 
   render() {
     return (
-      <View style={{flex:1}}>
+      <View style={{flex:1, backgroundColor: 'white'}}>
         <StatusBar1/>
         <View style={styles.container}>
           <MainComponent  name={this.props.name}/>

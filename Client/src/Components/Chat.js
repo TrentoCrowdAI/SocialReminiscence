@@ -55,30 +55,31 @@ export default class Chat extends React.Component {
 
   render() { 
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <View style={styles.container}>
         <View>
             <Message messages={this.props.messages}/>
-            <View style = {styles.keyboard}>
-                <Image 
-                  style={styles.plus}
-                  source={require('../Icon/plus.png')}
-                />
-                <View style = {styles.border} >
-                  <TextInput autoFocus
-                            keyboardType="default"
-                            returnKeyType="done"
-                            enablesReturnKeyAutomatically
-                            style={ [styles.input , {height: this.state.inputHeight}] }
-                            blurOnSubmit={ false }
-                            //onSubmitEditing={ this.handleSendMessage}
-                            onChangeText = {(text) => this.setState({text})}
-                            onContentSizeChange={(event) => this.contentSizeChange(event)}
-                            value = {this.state.text}
-                            ref='input'
-                            multiline = {true}
-                            placeholder = "Message"
-                            />
-                </View>
+              <View style = {styles.keyboard}>
+                  <Image 
+                    style={styles.plus}
+                    source={require('../Icon/plus.png')}
+                  />
+                  <View style = {styles.border} >
+                    <TextInput autoFocus
+                              keyboardType="default"
+                              returnKeyType="done"
+                              enablesReturnKeyAutomatically
+                              style={ [styles.input , {height: this.state.inputHeight}] }
+                              blurOnSubmit={ false }
+                              //onSubmitEditing={ this.handleSendMessage}
+                              onChangeText = {(text) => this.setState({text})}
+                              onContentSizeChange={(event) => this.contentSizeChange(event)}
+                              value = {this.state.text}
+                              ref='input'
+                              multiline = {true}
+                              placeholder = "Message"
+                              />
+                  </View>
+                
 
                 <TouchableHighlight 
                   onPress={this.handleSendMessage}
@@ -88,7 +89,7 @@ export default class Chat extends React.Component {
                 </TouchableHighlight>
             </View>
         </View>
-      </KeyboardAvoidingView>
+      </View>
     );
   }
 }

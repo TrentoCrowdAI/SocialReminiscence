@@ -10,6 +10,7 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
+import InvertibleScrollView  from 'react-native-invertible-scroll-view';
 
 
 const window = Dimensions.get('window'); 
@@ -20,11 +21,6 @@ const widthChat= (widthDevice * (5/7) - 20);
 export default class Message extends Component<Props>{
     constructor(props) {
         super(props);
-
-    }
-
-    componentDidUpdate(){
-        this.refs.messages.scrollToEnd()
     }
 
 
@@ -58,23 +54,22 @@ export default class Message extends Component<Props>{
             );
         }
     }
-    
+
 
     render(){
         return (
             <View style={{flex:1, borderTopColor: 'lightgrey', borderTopWidth: 2 }}>    
-                <ScrollView style={{marginTop:10, marginLeft: 60, marginRight: 160 }}>
+                <InvertibleScrollView 
+                    style={{marginTop:10, marginLeft: 60, marginRight: 160 }} 
+                    inverted 
+                    >
                     <FlatList data={ this.props.messages } 
                         renderItem={ this.renderItem }
                         styles={ styles.messages } 
                         ref="messages" 
-                        
-                        // ref={elm => this.flatList = elm}
-                        // getItemLayout={(data, index) => (
-                        //     {length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index}
-                        // )}
+                        keyExtractor = { (item, index) => index.toString() }
                     />
-                </ScrollView>
+                </InvertibleScrollView>
             </View>
         );
     }

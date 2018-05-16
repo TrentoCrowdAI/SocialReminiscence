@@ -6,8 +6,12 @@ import {
   View,
   Dimensions,
   Image,
-  StatusBar
+  StatusBar,
+  ScrollView,
+  TouchableWithoutFeedback
 } from 'react-native';
+
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import Person from '../Components/Person';
 import Metadata from '../Components/Metadata';
@@ -18,7 +22,7 @@ const widthDevice = window.width;
 const heightDevice = window.height;
 const heightDeviceAndroid = window.height - StatusBar.currentHeight;
 
-const widthImage = widthDevice * (5/7);
+const widthImage = widthDevice * (4/7);
 const heightImage = heightDevice * (3/4) - 10;
 const heightImageAndroid = (heightDeviceAndroid * (3/4) - 10);
 
@@ -33,30 +37,6 @@ export default class MainComponent extends Component<Props>{
     this.checkIfUrl = this.onReceivedMessage.bind(this);
     }
 
-    // resize(uri){
-    //     console.log("resize");
-
-    //     let result;
-
-    //    return Image.getSize(uri, (width, height) => {
-    //         console.log("width: " + (Platform.OS === 'ios' ? heightImage : heightImageAndroid)/height*width);
-    //         console.log("uri:" + uri);
-    //         if (height>width){
-    //             result = {
-    //                 height: Platform.OS === 'ios' ? heightImage : heightImageAndroid,
-    //                 width: (Platform.OS === 'ios' ? heightImage : heightImageAndroid)/height*width,
-                    
-    //             }
-    //         } else {
-    //             result = {
-    //                 width: widthImage,
-    //                 height: widthImage/width*height,
-    //             }
-    //         }
-    //         console.log("result; "+ JSON.stringify(result,null,"   "));
-    //         return result;
-    //     });  
-    // }
 
     onReceivedMessage(message){
         let columns = message.split(' ');
@@ -71,26 +51,27 @@ export default class MainComponent extends Component<Props>{
       }
     
 
-    render(){
 
+
+
+    render(){
         const pictures=this.state.pictures;
 
         return (
-
-            <View style = {styles.imageSection}> 
-                <View style = {styles.imageContainer}>
-                    <Image 
-                        source={{uri: `${pictures}` }}            
-                        // style= {[this.resize(`${pictures}`), styles.image]}
-                        style= { styles.image}
-                    />
-                    <View style={styles.descriptionContainer}>
-                        <Text style={styles.description}>Description</Text>
+            <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+                <View style = {styles.imageSection} > 
+                    <View style = {styles.imageContainer}>
+                        <Image 
+                            source={{uri: `${pictures}` }}            
+                            style= { styles.image}
+                        />
+                        <View style={styles.descriptionContainer}>
+                            <Text style={styles.description}>Description</Text>
+                        </View>
                     </View>
+                    <ChatClient name={ this.state.name } onReceivedMessage={this.checkIfUrl}/>
                 </View>
-
-                <ChatClient name={ this.state.name } onReceivedMessage={this.checkIfUrl}/>
-             </View>
+             </KeyboardAwareScrollView>
         );
     }
 }
@@ -99,31 +80,34 @@ export default class MainComponent extends Component<Props>{
 const styles = StyleSheet.create({
     imageSection: {
         justifyContent: 'center',
-        width: widthImage + 20,
+        width: widthImage - 140,
         height: Platform.OS === 'ios' ? heightDevice : heightDeviceAndroid,
-        margin: 10,
         //backgroundColor: 'skyblue',
     },
 
     imageContainer:{
         height: Platform.OS === 'ios' ? heightImage : heightImageAndroid,
+        width: widthImage + 140,
         //backgroundColor: 'powderblue',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 5,
+        //marginTop: 5,
+        margin: 10,
     },
 
     image: {
         height: Platform.OS === 'ios' ? heightImage : heightImageAndroid,
-        width: widthImage,
+        width: widthImage + 140,
         resizeMode: 'contain',
         // backgroundColor: 'blue',
     },
 
     descriptionContainer:{
-        width: widthImage,
+        width: widthImage + 140,
         alignItems: 'flex-end',
+        //backgroundColor: 'red'
     },
+
 
     description:{
         fontSize:16,

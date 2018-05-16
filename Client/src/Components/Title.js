@@ -33,10 +33,12 @@ const styles = StyleSheet.create({
     logo:{
         height: 45,
         width:45,
-        resizeMode: 'contain',
+        resizeMode: 'cover',
         marginRight: 10,
         //marginBottom: 10,
         marginLeft: 20,
+        //backgroundColor: 'red',
+        tintColor: 'white',
 
     },
 

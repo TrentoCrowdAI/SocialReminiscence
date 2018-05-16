@@ -10,16 +10,17 @@ import {
 const Person =(props) => {
 	return (
 		<View style = {styles.personContainer}>
-			<Image 
-				source={{uri: 'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-256.png'}}     				
-				style= {styles.photo}
-       			/>
+				<Image
+					source={require('../Icon/user.png')}    				
+					style= {styles.photo}
+					borderRadius={Platform.OS === 'ios' ? 45 : 35}
+					/>
        		<View style = {{marginBottom : 5 }}>
-				<Text style = {styles.name}>Person </Text>
+				<Text style = {styles.name}>Person</Text>
 			</View>
 		</View>
 	);
-}
+} 
 
 
 const styles = StyleSheet.create ({
@@ -35,10 +36,11 @@ const styles = StyleSheet.create ({
 	photo: {
 		height: Platform.OS === 'ios' ? 90 : 70,
 		width: Platform.OS === 'ios' ? 90 : 70,
-		resizeMode: 'contain',
-		borderRadius: 45,
+		resizeMode: 'cover',
+		//borderRadius: 45,
 		borderWidth: 5,
 		borderColor: 'white',
+		//backgroundColor: 'red',
 	},
 
 	name: {
